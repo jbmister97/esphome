@@ -49,7 +49,8 @@ void AQ100Component::setup() {
   }
 }
 
-//void AQ100Component::dump_config() { LOG_I2C_DEVICE(this); }
+//void SHT4XComponent::dump_config() { LOG_I2C_DEVICE(this); }
+void AQ100Component::dump_config() { ESP_LOGCONFIG(TAG, "AQ100 dump config..."); }
 
 void AQ100Component::update() {
   // Send temperature read command
