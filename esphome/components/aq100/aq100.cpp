@@ -7,9 +7,9 @@ namespace aq100 {
 static const char *const TAG = "aq100";
 
 //static const uint8_t MEASURECOMMANDS[] = {0xFD, 0xF6, 0xE0};
-static const char HEATERCMD[] = "%htr%";
-static const char GETTEMPCMD[] = "%temp%";
-static const char GETHUMCMD[] = "%hum%";
+static const char HEATERCMD[] = "#htr#";
+static const char GETTEMPCMD[] = "#temp#";
+static const char GETHUMCMD[] = "#hum#";
 
 void AQ100Component::start_heater_() {
   ESP_LOGD(TAG, "Heater turning on");
@@ -50,7 +50,7 @@ void AQ100Component::setup() {
 }
 
 //void SHT4XComponent::dump_config() { LOG_I2C_DEVICE(this); }
-void AQ100Component::dump_config() { ESP_LOGCONFIG(TAG, "AQ100 dump config..."); }
+//void AQ100Component::dump_config() { ESP_LOGCONFIG(TAG, "AQ100 dump config..."); }
 
 void AQ100Component::update() {
   // Send temperature read command
