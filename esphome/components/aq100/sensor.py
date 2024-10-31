@@ -86,10 +86,10 @@ CONFIG_SCHEMA = (
     #.extend(i2c.i2c_device_schema(0x44))
 )
 
-TYPES = {
-    CONF_TEMPERATURE: "set_temp_sensor",
-    CONF_HUMIDITY: "set_humidity_sensor",
-}
+#TYPES = {
+#    CONF_TEMPERATURE: "set_temp_sensor",
+#    CONF_HUMIDITY: "set_humidity_sensor",
+#}
 
 
 async def to_code(config):
