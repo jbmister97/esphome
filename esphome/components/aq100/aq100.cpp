@@ -11,11 +11,13 @@ static const char HEATERCMD[] = "#htr#";
 static const char GETTEMPCMD[] = "#temp#";
 static const char GETHUMCMD[] = "#hum#";
 
+/*
 void AQ100Component::start_heater_() {
   ESP_LOGD(TAG, "Heater turning on");
   this->write_str(HEATERCMD);
   this->write_byte(this->heater_command_);
 }
+*/
 
 /*
 void AQ100Component::setup() {
@@ -53,7 +55,7 @@ void AQ100Component::setup() {
 
 //void SHT4XComponent::dump_config() { LOG_I2C_DEVICE(this); }
 //void AQ100Component::dump_config() { ESP_LOGCONFIG(TAG, "AQ100 dump config..."); }
-
+/*
 void AQ100Component::update() {
   // Send temperature read command
   this->write_str(GETTEMPCMD);
@@ -96,6 +98,7 @@ void AQ100Component::update() {
     }
   });
 }
+*/
 
 }  // namespace aq100
 }  // namespace esphome
