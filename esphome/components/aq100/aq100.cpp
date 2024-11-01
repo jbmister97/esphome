@@ -21,7 +21,7 @@ void AQ100Component::start_heater_() {
 }
 
 void AQ100Component::setup() {
-  /*
+  
   ESP_LOGCONFIG(TAG, "Setting up aq100...");
 
   if (this->duty_cycle_ > 0.0) {
@@ -51,7 +51,7 @@ void AQ100Component::setup() {
 
     this->set_interval(heater_interval, std::bind(&AQ100Component::start_heater_, this));
   }
-  */
+  
 }
 
 

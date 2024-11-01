@@ -2,7 +2,6 @@
 
 #include "esphome/core/component.h"
 #include "esphome/components/sensor/sensor.h"
-//#include "esphome/components/sensirion_common/i2c_sensirion.h"
 #include "esphome/components/uart/uart.h"
 
 #include <cinttypes>

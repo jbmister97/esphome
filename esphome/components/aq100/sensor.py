@@ -1,6 +1,5 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
-#from esphome.components import i2c, sensor, sensirion_common
 from esphome.components import uart, sensor
 from esphome.const import (
     CONF_ID,
@@ -16,11 +15,7 @@ from esphome.const import (
 )
 
 #AQ100 sensor script
-
-#CODEOWNERS = ["@sjtrny"]
-#DEPENDENCIES = ["i2c"]
 DEPENDENCIES = ["uart"]
-#AUTO_LOAD = ["sensirion_common"]
 
 aq100_ns = cg.esphome_ns.namespace("aq100")
 
