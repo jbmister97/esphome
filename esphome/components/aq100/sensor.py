@@ -80,10 +80,10 @@ CONFIG_SCHEMA = (
     .extend(uart.UART_DEVICE_SCHEMA)
 )
 
-#TYPES = {
-#    CONF_TEMPERATURE: "set_temperature_sensor",
-#    CONF_HUMIDITY: "set_humidity_sensor",
-#}
+TYPES = {
+    CONF_TEMPERATURE: "set_temp_sensor",
+    CONF_HUMIDITY: "set_humidity_sensor",
+}
 
 
 async def to_code(config):
@@ -96,14 +96,14 @@ async def to_code(config):
     cg.add(var.set_heater_time_value(config[CONF_HEATER_TIME]))
     cg.add(var.set_heater_duty_value(config[CONF_HEATER_MAX_DUTY]))
 
-    #for key, funcName in TYPES.items():
-    #    if key in config:
-    #        sens = await sensor.new_sensor(config[key])
-    #        cg.add(getattr(var, funcName)(sens))
+    for key, funcName in TYPES.items():
+        if key in config:
+            sens = await sensor.new_sensor(config[key])
+            cg.add(getattr(var, funcName)(sens))
 
-    if CONF_TEMPERATURE in config:
-        sens = await sensor.new_sensor(config[CONF_TEMPERATURE])
-        cg.add(var.set_temperature_sensor(sens))
-    if CONF_HUMIDITY in config:
-        sens = await sensor.new_sensor(config[CONF_HUMIDITY])
-        cg.add(var.set_humidity_sensor(sens))
+    #if CONF_TEMPERATURE in config:
+    #    sens = await sensor.new_sensor(config[CONF_TEMPERATURE])
+    #    cg.add(var.set_temperature_sensor(sens))
+    #if CONF_HUMIDITY in config:
+    #    sens = await sensor.new_sensor(config[CONF_HUMIDITY])
+    #    cg.add(var.set_humidity_sensor(sens))
