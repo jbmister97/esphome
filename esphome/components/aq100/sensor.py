@@ -16,12 +16,13 @@ from esphome.const import (
 )
 
 #AQ100 sensor script
-DEPENDENCIES = ["uart"]
 
 #CODEOWNERS = ["@sjtrny"]
 #DEPENDENCIES = ["i2c"]
-aq100_ns = cg.esphome_ns.namespace("aq100")
+DEPENDENCIES = ["uart"]
 #AUTO_LOAD = ["sensirion_common"]
+
+aq100_ns = cg.esphome_ns.namespace("aq100")
 
 AQ100Component = aq100_ns.class_(
     "AQ100Component", cg.PollingComponent, uart.UARTDevice
@@ -82,11 +83,10 @@ CONFIG_SCHEMA = (
     )
     .extend(cv.polling_component_schema("60s"))
     #.extend(i2c.i2c_device_schema(0x44))
-    .extend(uart.UART_DEVICE_SCHEMA)
 )
 
 TYPES = {
-    CONF_TEMPERATURE: "set_temperature_sensor",
+    CONF_TEMPERATURE: "set_temp_sensor",
     CONF_HUMIDITY: "set_humidity_sensor",
 }
 
@@ -95,7 +95,6 @@ async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
     #await i2c.register_i2c_device(var, config)
-    await uart.register_uart_device(var, config)
 
     cg.add(var.set_precision_value(config[CONF_PRECISION]))
     cg.add(var.set_heater_power_value(config[CONF_HEATER_POWER]))
@@ -106,10 +105,3 @@ async def to_code(config):
         if key in config:
             sens = await sensor.new_sensor(config[key])
             cg.add(getattr(var, funcName)(sens))
-
-    #if CONF_TEMPERATURE in config:
-    #    sens = await sensor.new_sensor(config[CONF_TEMPERATURE])
-    #    cg.add(var.set_temperature_sensor(sens))
-    #if CONF_HUMIDITY in config:
-    #    sens = await sensor.new_sensor(config[CONF_HUMIDITY])
-    #    cg.add(var.set_humidity_sensor(sens))
