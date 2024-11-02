@@ -27,7 +27,7 @@ enum SHT4XHEATERTIME { SHT4X_HEATERTIME_LONG = 1100, SHT4X_HEATERTIME_SHORT = 11
 
 class AQ100Component : public PollingComponent, public uart::UARTDevice {
  public:
-  //float get_setup_priority() const override { return setup_priority::DATA; }
+  float get_setup_priority() const override { return setup_priority::DATA; }
   void setup() override;
   void dump_config() override;
   void update() override;
