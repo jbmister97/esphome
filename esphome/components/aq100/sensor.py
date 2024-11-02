@@ -1,5 +1,6 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
+#from esphome.components import i2c, sensor, sensirion_common
 from esphome.components import uart, sensor
 from esphome.const import (
     CONF_ID,
@@ -17,7 +18,10 @@ from esphome.const import (
 #AQ100 sensor script
 DEPENDENCIES = ["uart"]
 
+#CODEOWNERS = ["@sjtrny"]
+#DEPENDENCIES = ["i2c"]
 aq100_ns = cg.esphome_ns.namespace("aq100")
+#AUTO_LOAD = ["sensirion_common"]
 
 AQ100Component = aq100_ns.class_(
     "AQ100Component", cg.PollingComponent, uart.UARTDevice
@@ -77,6 +81,7 @@ CONFIG_SCHEMA = (
         }
     )
     .extend(cv.polling_component_schema("60s"))
+    #.extend(i2c.i2c_device_schema(0x44))
     .extend(uart.UART_DEVICE_SCHEMA)
 )
 
@@ -89,6 +94,7 @@ TYPES = {
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
+    #await i2c.register_i2c_device(var, config)
     await uart.register_uart_device(var, config)
 
     cg.add(var.set_precision_value(config[CONF_PRECISION]))
