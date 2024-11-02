@@ -7,9 +7,10 @@ namespace aq100 {
 static const char *const TAG = "aq100";
 
 //static const uint8_t MEASURECOMMANDS[] = {0xFD, 0xF6, 0xE0};
-static const char HEATERCMD[] = "%htr%";
-static const char GETTEMPCMD[] = "%temp%";
-static const char GETHUMCMD[] = "%hum%";
+static const char HEATERCMD[] = "#htr#";
+static const char GETTEMPCMD[] = "#temp#";
+static const char GETHUMCMD[] = "#hum#";
+
 
 void AQ100Component::start_heater_() {
   ESP_LOGD(TAG, "Heater turning on");
@@ -47,7 +48,9 @@ void AQ100Component::setup() {
 
     this->set_interval(heater_interval, std::bind(&AQ100Component::start_heater_, this));
   }
+  
 }
+
 
 //void SHT4XComponent::dump_config() { LOG_I2C_DEVICE(this); }
 void AQ100Component::dump_config() { ESP_LOGCONFIG(TAG, "AQ100 dump config..."); }
@@ -64,14 +67,15 @@ void AQ100Component::update() {
 
     if(read_status) {
       // Evaluate and publish measurements
-      if(this->temp_sensor_ != nullptr) {
+      if(this->temperature_sensor_ != nullptr) {
         // Temp data is one byte
-        this->temp_sensor_->publish_state(buffer);
+        this->temperature_sensor_->publish_state(buffer);
       }
     }
     else {
       ESP_LOGD(TAG, "Sensor temperature read failed");
     }
+    
   });
 
   // Send humidity read command
@@ -94,6 +98,7 @@ void AQ100Component::update() {
     }
   });
 }
+
 
 }  // namespace aq100
 }  // namespace esphome
