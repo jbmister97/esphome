@@ -54,7 +54,7 @@ CONFIG_SCHEMA = (
         {
             cv.GenerateID(): cv.declare_id(AQ100Component),
             cv.Optional(CONF_TEMPERATURE): sensor.sensor_schema(
-                unit_of_measurement="°F",
+                unit_of_measurement=UNIT_CELSIUS,
                 icon=ICON_THERMOMETER,
                 accuracy_decimals=2,
                 device_class=DEVICE_CLASS_TEMPERATURE,
@@ -104,9 +104,10 @@ async def to_code(config):
     #        sens = await sensor.new_sensor(config[key])
     #        cg.add(getattr(var, funcName)(sens))
 
-    #if CONF_TEMPERATURE in config:
-    sens = await sensor.new_sensor(config[CONF_TEMPERATURE])
-    cg.add(var.set_temperature_sensor(sens))
+    if CONF_TEMPERATURE in config:
+        sens = await sensor.new_sensor(config[CONF_TEMPERATURE])
+        cg.add(var.set_temp_sensor(sens))
+
     if CONF_HUMIDITY in config:
         sens = await sensor.new_sensor(config[CONF_HUMIDITY])
         cg.add(var.set_humidity_sensor(sens))

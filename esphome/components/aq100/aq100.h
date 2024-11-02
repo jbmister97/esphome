@@ -37,7 +37,7 @@ class AQ100Component : public PollingComponent, public uart::UARTDevice {
   void set_heater_time_value(SHT4XHEATERTIME heater_time) { this->heater_time_ = heater_time; };
   void set_heater_duty_value(float duty_cycle) { this->duty_cycle_ = duty_cycle; };
 
-  void set_temperature_sensor(sensor::Sensor *temp_sensor) { this->temperature_sensor_ = temp_sensor; }
+  void set_temp_sensor(sensor::Sensor *temp_sensor) { this->temperature_sensor_ = temp_sensor; }
   void set_humidity_sensor(sensor::Sensor *humidity_sensor) { this->humidity_sensor_ = humidity_sensor; }
 
  protected:
