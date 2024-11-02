@@ -86,7 +86,7 @@ CONFIG_SCHEMA = (
 )
 
 TYPES = {
-    CONF_TEMPERATURE: "set_temp_sensor",
+    CONF_TEMPERATURE: "set_temperature_sensor",
     CONF_HUMIDITY: "set_humidity_sensor",
 }
 

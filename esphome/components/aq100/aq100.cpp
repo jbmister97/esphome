@@ -67,9 +67,9 @@ void AQ100Component::update() {
 
     if(read_status) {
       // Evaluate and publish measurements
-      if(this->temp_sensor_ != nullptr) {
+      if(this->temperature_sensor_ != nullptr) {
         // Temp data is one byte
-        this->temp_sensor_->publish_state(buffer);
+        this->temperature_sensor_->publish_state(buffer);
       }
     }
     else {
