@@ -7,15 +7,18 @@ namespace aq100 {
 static const char *const TAG = "aq100";
 
 //static const uint8_t MEASURECOMMANDS[] = {0xFD, 0xF6, 0xE0};
-static const char HEATERCMD[] = "#htr#";
-static const char GETTEMPCMD[] = "#temp#";
-static const char GETHUMCMD[] = "#hum#";
-
+static const uint8_t HEATERCMD = 0x30;
+static const uint8_t GETTEMPCMD = 0x10;
+static const uint8_t GETHUMCMD = 0x20;
+static const uint8_t STARTBYTE = '#';
+static const uint8_t ENDBYTE = '%';
 
 void AQ100Component::start_heater_() {
   ESP_LOGD(TAG, "Heater turning on");
-  this->write_str(HEATERCMD);
+  this->write_byte(STARTBYTE);
+  this->write_byte(HEATERCMD);
   this->write_byte(this->heater_command_);
+  this->write_byte(ENDBYTE);
 }
 
 void AQ100Component::setup() {
@@ -53,11 +56,13 @@ void AQ100Component::setup() {
 
 
 //void SHT4XComponent::dump_config() { LOG_I2C_DEVICE(this); }
-void AQ100Component::dump_config() { ESP_LOGCONFIG(TAG, "AQ100 dump config..."); }
+void AQ100Component::dump_config() { ESP_LOGCONFIG(TAG, "AQ100 dump config... v1.1 loaded"); }
 
 void AQ100Component::update() {
   // Send temperature read command
-  this->write_str(GETTEMPCMD);
+  this->write_byte(STARTBYTE);
+  this->write_byte(GETTEMPCMD);
+  this->write_byte(ENDBYTE);
 
   this->set_timeout(10, [this]() {
     uint8_t buffer = 0;
@@ -79,7 +84,9 @@ void AQ100Component::update() {
   });
 
   // Send humidity read command
-  this->write_str(GETHUMCMD);
+  this->write_byte(STARTBYTE);
+  this->write_byte(GETHUMCMD);
+  this->write_byte(ENDBYTE);
 
   this->set_timeout(10, [this]() {
     uint8_t buffer = 0;
